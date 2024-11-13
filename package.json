@@ -1,0 +1,19 @@
+{
+  "name": "shoppingweb_backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/cczzHoward/ShoppingWeb_Backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cczzHoward/ShoppingWeb_Backend/issues"
+  },
+  "homepage": "https://github.com/cczzHoward/ShoppingWeb_Backend#readme",
+  "description": ""
+}
