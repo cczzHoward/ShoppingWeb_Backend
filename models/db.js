@@ -6,3 +6,5 @@ const conn = mongoose.createConnection(connConfig);
 conn.on("connected", () => {
   console.log("Connected to MongoDB");
 });
+
+module.exports = conn;

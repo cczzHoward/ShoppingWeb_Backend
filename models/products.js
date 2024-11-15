@@ -1,3 +1,4 @@
+const db = require("./db");
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
@@ -17,6 +18,6 @@ const productSchema = new Schema(
 );
 
 // 建立 Model
-const ProductModel = mongoose.model("Product", productSchema);
+const ProductModel = db.model("Product", productSchema);
 
 module.exports = ProductModel;
