@@ -2,13 +2,37 @@ const express = require("express");
 const router = express.Router();
 const productsModel = require("../models").products;
 
-router.get("/", (req, res) => {
-  res.send("This is the root of the products router");
+// Get all products
+router.get("/", async (req, res) => {
+  console.log("GET /api/v1/products");
+  try {
+    let products = await productsModel.find({});
+    return res.send(products);
+  } catch (err) {
+    console.log("Error getting products:", err);
+    return res.status(500).send("Error getting products");
+  }
 });
 
+// Get a product by id
+router.get("/:id", async (req, res) => {
+  console.log("GET /api/v1/products/:id");
+  const _id = req.params.id;
+  try {
+    let product = await productsModel.find({ _id });
+    if (!product) {
+      return res.status(404).send("Product not found");
+    }
+    return res.send(product);
+  } catch (err) {
+    console.log("Error getting product:", err);
+    return res.status(500).send("Error getting product");
+  }
+});
+
+// Add a new product
 router.post("/", async (req, res) => {
   console.log("POST /api/v1/products");
-  console.log("req body:", req.body);
   const { title, price, category, description, image } = req.body;
   try {
     const newProduct = new productsModel({
