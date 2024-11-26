@@ -2,13 +2,13 @@ const swaggerAutogen = require('swagger-autogen')();
 
 const doc = {
     info: {
-      title: 'My API',
-      description: 'Description'
+      title: 'ShoppingWeb API',
+      description: 'All API endpoints for ShoppingWeb',
     },
     host: 'localhost:8080'
 };
 
-const outputFile = './swagger-output.json';
+const outputFile = './swagger-config.json';
 const routes = ['./index.js'];
 
 swaggerAutogen(outputFile, routes, doc);

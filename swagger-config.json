@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "My API",
-    "description": "Description",
+    "title": "ShoppingWeb API",
+    "description": "All API endpoints for ShoppingWeb",
     "version": "1.0.0"
   },
   "host": "localhost:8080",
@@ -26,7 +26,7 @@
         "tags": [
           "Users"
         ],
-        "description": "",
+        "description": "取得所有使用者",
         "responses": {
           "200": {
             "description": "OK"
@@ -39,50 +39,21 @@
         "tags": [
           "Products"
         ],
-        "description": "Get all products",
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "User information.",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "test": {
-                  "type": "string",
-                  "example": "test"
-                }
-              }
-            }
-          }
-        ],
+        "description": "取得所有商品",
         "responses": {
           "200": {
-            "description": "User registered successfully.",
-            "schema": {
-              "type": "object",
-              "properties": {},
-              "xml": {
-                "name": "main"
-              }
-            }
+            "description": "OK"
           },
           "500": {
             "description": "Internal Server Error"
           }
-        },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
+        }
       },
       "post": {
         "tags": [
           "Products"
         ],
-        "description": "",
+        "description": "新增商品",
         "parameters": [
           {
             "name": "body",
@@ -124,7 +95,7 @@
         "tags": [
           "Products"
         ],
-        "description": "",
+        "description": "透過 ID 取得商品",
         "parameters": [
           {
             "name": "id",

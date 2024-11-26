@@ -4,7 +4,7 @@ const productsModel = require("../models").products;
 
 // Get all products
 router.get("/", async (req, res) => {
-  // #swagger.description = 'Get all products'
+  // #swagger.description = '取得所有商品'
   console.log("GET /api/v1/products");
   try {
     let products = await productsModel.find({});
@@ -17,6 +17,7 @@ router.get("/", async (req, res) => {
 
 // Get a product by id
 router.get("/:id", async (req, res) => {
+  // #swagger.description = '透過 ID 取得商品'
   console.log("GET /api/v1/products/:id");
   const _id = req.params.id;
   try {
@@ -33,6 +34,7 @@ router.get("/:id", async (req, res) => {
 
 // Add a new product
 router.post("/", async (req, res) => {
+  // #swagger.description = '新增商品'
   console.log("POST /api/v1/products");
   const { title, price, category, description, image } = req.body;
   try {
