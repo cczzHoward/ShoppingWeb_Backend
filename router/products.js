@@ -4,6 +4,7 @@ const productsModel = require("../models").products;
 
 // Get all products
 router.get("/", async (req, res) => {
+  // #swagger.description = 'Get all products'
   console.log("GET /api/v1/products");
   try {
     let products = await productsModel.find({});
