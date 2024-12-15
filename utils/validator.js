@@ -31,3 +31,9 @@ const postProductValidation = (data) => {
 
     return productSchema.validate(data);
 }
+
+module.exports = {
+    registerValidation,
+    loginValidation,
+    postProductValidation
+};
