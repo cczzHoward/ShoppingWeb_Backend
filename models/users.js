@@ -45,6 +45,18 @@ const userSchema = new Schema(
     }
 )
 
+userSchema.methods.isCustomer = function() {
+    return this.role === "customer";
+};
+
+userSchema.methods.isSeller = function() {
+    return this.role === "seller";
+};
+
+userSchema.methods.isAdmin = function() {
+    return this.role === "admin";
+};
+
 // 檢查密碼是否正確
 userSchema.methods.comparePassword = async function(password) {
     try {

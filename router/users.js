@@ -89,7 +89,7 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign(tokenObject, process.env.TOKEN_SECRET);
     return res.send({
       message: "Login successful",
-      token,
+      token: "JWT " + token,
     });
   } catch (error) {
     console.log("Error comparing password:", error);

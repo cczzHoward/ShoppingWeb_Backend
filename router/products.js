@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const productsModel = require("../models").products;
+const postProductValidation = require("../utils/validator").postProductValidation;
 
 // Get all products
 router.get("/", async (req, res) => {
@@ -36,6 +37,17 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   // #swagger.description = '新增商品'
   console.log("POST /api/v1/products");
+
+  // Validate the request body
+  const { error } = postProductValidation(req.body);
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
+
+  if (req.user.role !== "seller") {
+    return res.status(403).send("Only sellers can add products");
+  }
+
   const { title, price, category, description, image } = req.body;
   try {
     const newProduct = new productsModel({

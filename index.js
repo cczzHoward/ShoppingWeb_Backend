@@ -1,9 +1,11 @@
 const express = require("express");
+require("dotenv").config();
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger-config.json');
 const app = express();
 const port = 8080;
-require("dotenv").config();
+const passport = require("passport");
+require("./config/passport")(passport);
 
 const usersRouter = require("./router/users");
 const productsRouter = require("./router/products");
@@ -22,6 +24,7 @@ app.use("/api/v1/users",
   usersRouter);
 app.use("/api/v1/products",
   // #swagger.tags = ['Products']
+  passport.authenticate("jwt", { session: false}),
   productsRouter);
 
 app.listen(port, () => {
