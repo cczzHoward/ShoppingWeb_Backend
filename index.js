@@ -3,6 +3,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger-config.json');
 const app = express();
 const port = 8080;
+require("dotenv").config();
 
 const usersRouter = require("./router/users");
 const productsRouter = require("./router/products");

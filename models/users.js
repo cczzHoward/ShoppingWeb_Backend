@@ -33,6 +33,10 @@ const userSchema = new Schema(
             required: true,
             enum: ["customer", "seller", "admin"],
             default: "customer",
+        },
+        date: {
+            type: Date,
+            default: Date.now,
         }
     },
     {
