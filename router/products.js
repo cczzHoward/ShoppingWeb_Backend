@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
   // #swagger.description = '取得所有商品'
   console.log("GET /api/v1/products");
   try {
-    let products = await productsModel.find({});
+    let products = await productsModel.find({}).populate("seller", "username");
     return res.send(products);
   } catch (err) {
     console.log("Error getting products:", err);
@@ -22,7 +22,7 @@ router.get("/:id", async (req, res) => {
   console.log("GET /api/v1/products/:id");
   const _id = req.params.id;
   try {
-    let product = await productsModel.find({ _id });
+    let product = await productsModel.find({ _id }).populate("seller", "username");
     if (!product) {
       return res.status(404).send("Product not found");
     }
@@ -56,6 +56,7 @@ router.post("/", async (req, res) => {
       category,
       description,
       image,
+      seller: req.user._id,
     });
 
     let savedproduct = await newProduct.save();

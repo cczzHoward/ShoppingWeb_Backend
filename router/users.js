@@ -98,6 +98,26 @@ router.post("/login", async (req, res) => {
 });
 
 // Update a user by id
+router.patch("/:id", async (req, res) => {
+  // #swagger.description = '透過 ID 更新使用者'
+  console.log("PATCH /api/v1/users/:id");
+  const _id = req.params.id;
+  const { username, email, password, role } = req.body;
+  try {
+    let updatedUser = await userModel.findByIdAndUpdate(
+      { _id },
+      { username, email, password, role },
+      { new: true }
+    );
+    return res.send({
+      message: "User updated successfully",
+      updatedUser,
+    });
+  } catch (err) {
+    console.log("Error updating user:", err);
+    return res.status(500).send("Error updating user");
+  }
+});
 
 // Delete a user by id
 

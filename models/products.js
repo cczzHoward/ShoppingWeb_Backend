@@ -1,3 +1,4 @@
+const { date } = require("joi");
 const db = require("./db");
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
@@ -31,6 +32,14 @@ const productSchema = new Schema(
     image: {
       type: String,
       default: ""
+    },
+    seller: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    },
+    date: {
+      type: Date,
+      default: Date.now,
     },
   },
   {
