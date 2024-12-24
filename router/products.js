@@ -44,7 +44,7 @@ router.post("/", async (req, res) => {
     return res.status(400).send(error.details[0].message);
   }
 
-  if (req.user.role !== "seller") {
+  if (!req.user.isSeller()) {
     return res.status(403).send("Only sellers can add products");
   }
 
