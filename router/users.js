@@ -8,7 +8,9 @@ const loginValidation = require("../utils/validator").loginValidation;
 
 // Get all users
 router.get("/", async (req, res) => {
-  // #swagger.description = '取得所有使用者'
+  /* 
+    #swagger.description = 'Get All Users'
+  */
   console.log("GET /api/v1/users");
   try {
     let users = await userModel.find({});
@@ -21,10 +23,46 @@ router.get("/", async (req, res) => {
 
 
 // Get a user by id
+router.get("/:id", async (req, res) => {
+  /* 
+    #swagger.description = 'Get a user by id'
+    #swagger.parameters['id'] = {
+      in: 'path',
+      description: 'User ID',
+      required: true,
+      type: 'string'
+    }
+  */
+  console.log("GET /api/v1/users/:id");
+  const _id = req.params.id;
+  try {
+    let user = await userModel.findById(_id);
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+    return res.send(user);
+  } catch (err) {
+    console.log("Error getting user:", err);
+    return res.status(500).send("Error getting user");
+  }
+});
 
 // Register a new user
 router.post("/register", async (req, res) => {
-  // #swagger.description = '註冊使用者'
+  /* 
+    #swagger.description = 'Register a new user'
+    #swagger.parameters['body'] = {
+      in: 'body',
+      description: 'User registration data',
+      required: true,
+      schema: {
+          $username: "test",
+          $email: "test@example.com",
+          $password: "password123",
+          $role: "customer"
+      }
+    }
+  */
   console.log("POST /api/v1/users/register");
 
   // Validate the request body
@@ -62,7 +100,18 @@ router.post("/register", async (req, res) => {
 
 // Login a user
 router.post("/login", async (req, res) => {
-  // #swagger.description = '登入使用者'
+  /* 
+    #swagger.description = '使用者登入'
+    #swagger.parameters['body'] = {
+      in: 'body',
+      description: '使用者登入資料',
+      required: true,
+      schema: {
+          $email: "test@example.com",
+          $password: "password123"
+      }
+    }
+  */
   console.log("POST /api/v1/users/login");
 
   // Validate the request body
@@ -99,7 +148,26 @@ router.post("/login", async (req, res) => {
 
 // Update a user by id
 router.patch("/:id", async (req, res) => {
-  // #swagger.description = '透過 ID 更新使用者'
+  /* 
+    #swagger.description = 'Update a user by id'
+    #swagger.parameters['id'] = {
+      in: 'path',
+      description: 'User ID',
+      required: true,
+      type: 'string'
+    }
+    #swagger.parameters['body'] = {
+      in: 'body',
+      description: 'Updated user data',
+      required: true,
+      schema: {
+          username: "test",
+          email: "test@example.com",
+          password: "password123",
+          role: "customer"
+      }
+    }
+  */
   console.log("PATCH /api/v1/users/:id");
   const _id = req.params.id;
   const { username, email, password, role } = req.body;

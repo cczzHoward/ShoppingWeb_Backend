@@ -16,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
+  // #swagger.tags = ['Root']
   res.send("This is the root route");
 });
 

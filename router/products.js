@@ -5,10 +5,15 @@ const postProductValidation = require("../utils/validator").postProductValidatio
 
 // Get all products
 router.get("/", async (req, res) => {
-  // #swagger.description = '取得所有商品'
+  /* 
+    #swagger.description = 'Get All Products'
+    #swagger.security = [{
+      "JWT": []
+    }]
+  */
   console.log("GET /api/v1/products");
   try {
-    let products = await productsModel.find({}).populate("seller", "username");
+    let products = await productsModel.find({}).populate("seller", ["username", "-_id"]);
     return res.send(products);
   } catch (err) {
     console.log("Error getting products:", err);
@@ -18,11 +23,22 @@ router.get("/", async (req, res) => {
 
 // Get a product by id
 router.get("/:id", async (req, res) => {
-  // #swagger.description = '透過 ID 取得商品'
+  /* 
+    #swagger.description = 'Get Product by ID'
+    #swagger.security = [{
+      "JWT": []
+    }]
+    #swagger.parameters['id'] = {
+      in: 'path',
+      description: 'Product ID',
+      required: true,
+      type: 'string'
+    }
+  */
   console.log("GET /api/v1/products/:id");
   const _id = req.params.id;
   try {
-    let product = await productsModel.find({ _id }).populate("seller", "username");
+    let product = await productsModel.find({ _id }).populate("seller", ["username", "-_id"]);
     if (!product) {
       return res.status(404).send("Product not found");
     }
@@ -35,7 +51,24 @@ router.get("/:id", async (req, res) => {
 
 // Add a new product
 router.post("/", async (req, res) => {
-  // #swagger.description = '新增商品'
+  /* 
+    #swagger.description = 'Add a new product'
+    #swagger.security = [{
+      "JWT": []
+    }]
+    #swagger.parameters['body'] = {
+      in: 'body',
+      description: 'Product data',
+      required: true,
+      schema: {
+          $title: "Test Product",
+          $price: 100,
+          $category: "food",
+          $description: "This is a test product",
+          $image: "data:image/jpeg;base64,..."
+      }
+    }
+  */
   console.log("POST /api/v1/products");
 
   // Validate the request body

@@ -10,9 +10,20 @@
   "schemes": [
     "http"
   ],
+  "securityDefinitions": {
+    "JWT": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization",
+      "description": "JWT token for authentication"
+    }
+  },
   "paths": {
     "/": {
       "get": {
+        "tags": [
+          "Root"
+        ],
         "description": "",
         "responses": {
           "200": {
@@ -26,7 +37,85 @@
         "tags": [
           "Users"
         ],
-        "description": "取得所有使用者",
+        "description": "Get All Users",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/users/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Get a user by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "User ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Update a user by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "User ID"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Updated user data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": "test"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "test@example.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password123"
+                },
+                "role": {
+                  "type": "string",
+                  "example": "customer"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -42,27 +131,39 @@
         "tags": [
           "Users"
         ],
-        "description": "註冊使用者",
+        "description": "Register a new user",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "description": "User registration data",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "username": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "test"
                 },
                 "email": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "test@example.com"
                 },
                 "password": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "password123"
                 },
                 "role": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "customer"
                 }
-              }
+              },
+              "required": [
+                "username",
+                "email",
+                "password",
+                "role"
+              ]
             }
           }
         ],
@@ -84,21 +185,29 @@
         "tags": [
           "Users"
         ],
-        "description": "登入使用者",
+        "description": "使用者登入",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "description": "使用者登入資料",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "email": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "test@example.com"
                 },
                 "password": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "password123"
                 }
-              }
+              },
+              "required": [
+                "email",
+                "password"
+              ]
             }
           }
         ],
@@ -120,7 +229,7 @@
         "tags": [
           "Products"
         ],
-        "description": "取得所有商品",
+        "description": "Get All Products",
         "responses": {
           "200": {
             "description": "OK"
@@ -128,36 +237,55 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
       },
       "post": {
         "tags": [
           "Products"
         ],
-        "description": "新增商品",
+        "description": "Add a new product",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "description": "Product data",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "title": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Test Product"
                 },
                 "price": {
-                  "example": "any"
+                  "type": "number",
+                  "example": 100
                 },
                 "category": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "food"
                 },
                 "description": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "This is a test product"
                 },
                 "image": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "data:image/jpeg;base64,..."
                 }
-              }
+              },
+              "required": [
+                "title",
+                "price",
+                "category",
+                "description",
+                "image"
+              ]
             }
           }
         ],
@@ -165,10 +293,21 @@
           "200": {
             "description": "OK"
           },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
       }
     },
     "/api/v1/products/{id}": {
@@ -176,13 +315,14 @@
         "tags": [
           "Products"
         ],
-        "description": "透過 ID 取得商品",
+        "description": "Get Product by ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "Product ID"
           }
         ],
         "responses": {
@@ -195,7 +335,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
       }
     }
   }
