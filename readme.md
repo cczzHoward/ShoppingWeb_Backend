@@ -22,32 +22,33 @@
   - 完整的 API 文件
 
 ## 專案結構
-
+```
 ShoppingWeb_Backend/
 ├── config/
-│ └── passport.js # Passport JWT 設定
+│   └── passport.js         # Passport JWT 設定
 │
 ├── models/
-│ ├── db.js # 資料庫連線設定
-│ ├── index.js # 模型導出設定
-│ ├── products.js # 商品模型
-│ └── users.js # 使用者模型
+│   ├── db.js              # 資料庫連線設定
+│   ├── index.js           # 模型導出設定
+│   ├── products.js        # 商品模型
+│   └── users.js           # 使用者模型
 │
 ├── router/
-│ ├── index.js # 路由導出設定
-│ ├── products.js # 商品相關路由
-│ └── users.js # 使用者相關路由
+│   ├── index.js           # 路由導出設定
+│   ├── products.js        # 商品相關路由
+│   └── users.js           # 使用者相關路由
 │
 ├── utils/
-│ └── validator.js # 資料驗證工具
+│   └── validator.js       # 資料驗證工具
 │
-├── .env # 環境變數設定
-├── .gitignore # Git 忽略檔案設定
-├── index.js # 應用程式入口
-├── package.json # 專案設定與依賴
-├── README.md # 專案說明文件
-├── swagger.js # Swagger 設定
-└── swagger-config.json # Swagger API 文件
+├── .env                   # 環境變數設定
+├── .gitignore            # Git 忽略檔案設定
+├── index.js              # 應用程式入口
+├── package.json          # 專案設定與依賴
+├── README.md             # 專案說明文件
+├── swagger.js            # Swagger 設定
+└── swagger-config.json   # Swagger API 文件
+```
 
 ## 技術架構
 
